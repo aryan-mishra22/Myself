@@ -3,7 +3,6 @@ import { Hero } from "@/components/hero";
 import { AmbientBackground } from "@/components/ambient-background";
 import { ExploreTerminal } from "@/components/explore-terminal";
 import { ButtonFeedback } from "@/components/button-feedback";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 import {
   AboutSection,
   ContactSection,
@@ -19,7 +18,6 @@ export default function HomePage() {
     <>
       <AmbientBackground />
       <ButtonFeedback />
-      <ThemeSwitcher />
       <a className="skip-link" href="#main-content">Skip to content</a>
       <ScrollProgress />
       <IntroOverlay />

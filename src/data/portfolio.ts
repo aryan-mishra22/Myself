@@ -60,7 +60,7 @@ export const experiences: Experience[] = [
     position: "Python Developer",
     duration: "2026 — Present",
     description:
-      "Working on AI-powered creative applications, video editing workflows, backend development and AI model integrations using Python and Django.",
+      "Building a scalable Python and Django backend for AI Studio, bringing voice, music, image and video generation models together in one platform. Developing model integrations and backend workflows for the video composer and AI-powered creative tools.",
     current: true,
   },
   {

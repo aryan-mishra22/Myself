@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { useState, type FormEvent } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Image from "next/image";
 import {
   ArrowDownRight,
@@ -91,13 +91,13 @@ export function AboutSection() {
           <Reveal className="about-story">
             <h3>I like making complex things feel simple.</h3>
             <p>
-              I&apos;m a Computer Science and Engineering graduate focused on Python and Django backend development. I build CRUD applications, design REST APIs, work with Django ORM and MySQL, and have hands-on experience with testing, data analysis, and machine learning projects.
+              I&apos;m a Computer Science and Engineering graduate focused on full-stack development and AI-powered applications. I connect user interfaces with Python and Django APIs, work with Django ORM and MySQL, and have hands-on experience with testing, data analysis, and machine learning projects.
             </p>
             <p>
               My projects include an AI quiz generator, an AWS data engineering pipeline, and a voice-controlled assistant using the Gemini API.
             </p>
             <p>
-              I&apos;m seeking an entry-level Python Developer role focused on Django backend development, while continuing to explore AI and cloud technologies.
+              I&apos;m seeking an entry-level full-stack developer role where I can build AI-powered web applications, while continuing to explore AI and cloud technologies.
             </p>
             <a className="text-link" href="#experience">
               A bit of my journey <ArrowDownRight size={15} aria-hidden="true" />
@@ -123,7 +123,7 @@ export function AboutSection() {
               <span className="about-focus__label">CURRENTLY INTERESTED IN</span>
               <div className="interest-list">
                 <span><BrainCircuit size={15} /> Applied AI</span>
-                <span><Layers3 size={15} /> Backend systems</span>
+                <span><Layers3 size={15} /> Full-stack applications</span>
                 <span><Database size={15} /> Data engineering</span>
               </div>
             </div>
@@ -150,24 +150,36 @@ const skillChipVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.2 } },
 };
 
+const mainSkills = ["Python", "Django", "Machine Learning", "Data Pipelines", "SQL"];
+
 export function SkillsSection() {
   const reduceMotion = useReducedMotion();
-  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
-  const relatedSkills = selectedSkill ? getConnectedSkills(selectedSkill) : [];
+  const [skillIndex, setSkillIndex] = useState(0);
+  const panel = useRef<HTMLDivElement>(null);
+  const inView = useInView(panel, { amount: 0.4 });
+  const selectedSkill = mainSkills[skillIndex];
+  const relatedSkills = getConnectedSkills(selectedSkill);
+
+  useEffect(() => {
+    if (!inView || reduceMotion !== false) return;
+    const timer = setInterval(() => {
+      if (!document.hidden) setSkillIndex((index) => (index + 1) % mainSkills.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [inView, reduceMotion]);
 
   return (
     <section className="section skills-section" id="skills" aria-labelledby="skills-title">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading eyebrow="THE TOOLKIT" title="Tools for turning ideas into reality." titleId="skills-title" />
         <p className="section-lead">
-          Select a skill to discover the tools it connects with. Select it again to reset.
+          My core skills and the tools that connect them, from Python and Django to AI and data engineering.
         </p>
-        <div className="skill-connections" aria-label="Skill connections">
+        <div className="skill-connections" ref={panel} aria-label="Skill connections">
           <div className="skill-connections__heading">
-            <p role="status" aria-live="polite">
-              {selectedSkill ? `${selectedSkill} connects with ${relatedSkills.length} tools below.` : "Start with Python, or choose any skill below."}
+            <p>
+              {selectedSkill} connects with {relatedSkills.length} tools below.
             </p>
-            {selectedSkill && <button type="button" onClick={() => setSelectedSkill(null)}>Reset selection</button>}
           </div>
           {selectedSkill && (
             <div className="skill-connections__map" key={selectedSkill}>
@@ -175,7 +187,7 @@ export function SkillsSection() {
               <span className="skill-connections__line" aria-hidden="true" />
               <div className="skill-connections__targets" aria-label={`Tools connected to ${selectedSkill}`}>
                 {relatedSkills.map((skill) => (
-                  <button type="button" key={skill} onClick={() => setSelectedSkill(skill)} aria-label={`Explore ${skill} connections`}>{skill}<ArrowRight size={12} aria-hidden="true" /></button>
+                  <span className="skill-connection-target" key={skill}>{skill}<ArrowRight size={12} aria-hidden="true" /></span>
                 ))}
               </div>
             </div>
@@ -199,19 +211,16 @@ export function SkillsSection() {
                   viewport={{ once: true, amount: 0.7 }}
                 >
                   {group.skills.map((skill) => (
-                    <motion.button
-                      type="button"
+                    <motion.span
                       className={`skill-chip${selectedSkill === skill ? " skill-chip--selected" : relatedSkills.includes(skill) ? " skill-chip--connected" : ""}`}
                       variants={skillChipVariants}
                       key={skill}
-                      aria-pressed={selectedSkill === skill}
                       aria-label={`${skill}${relatedSkills.includes(skill) ? `, connected to ${selectedSkill}` : ""}`}
-                      onClick={() => setSelectedSkill(selectedSkill === skill ? null : skill)}
                     >
                       {skill}
                       {selectedSkill === skill && <span aria-hidden="true"> •</span>}
                       {relatedSkills.includes(skill) && <span aria-hidden="true"> ↔</span>}
-                    </motion.button>
+                    </motion.span>
                   ))}
                 </motion.div>
               </Reveal>

@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Aryan Kumar Mishra",
   shortName: "ARYAN",
-  title: "Python & Django Backend Developer",
+  title: "Full-Stack Developer | AI-Powered Applications",
   description:
-    "Aryan Kumar Mishra is a Python and Django backend developer building REST APIs, database-backed applications, and AI-powered projects.",
+    "Aryan Kumar Mishra is a full-stack developer building AI-powered applications, connecting user interfaces, Python and Django APIs, and relational databases.",
   availability: "OPEN TO NEW OPPORTUNITIES",
   contact: {
     email: "aryankumar22mishra@gmail.com",

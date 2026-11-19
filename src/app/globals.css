@@ -290,12 +290,12 @@ main .section::before,
 .skill-connections__line { position: relative; flex: 0 0 40px; height: 1px; background: rgba(var(--accent-rgb), 0.4); overflow: hidden; }
 .skill-connections__line::after { position: absolute; inset: -1px auto -1px 0; width: 12px; background: #c1cbff; content: ""; animation: skill-connection-flow 2s linear infinite; }
 .skill-connections__targets { display: flex; flex-wrap: wrap; gap: 8px; padding-left: 16px; border-left: 1px solid rgba(var(--accent-rgb), 0.4); }
-.skill-connections__targets button { display: inline-flex; align-items: center; gap: 9px; padding: 9px 12px; color: #bce5df; background: rgba(90, 190, 172, 0.06); border: 1px solid rgba(117, 217, 190, 0.3); border-radius: 6px; font-size: 11px; cursor: pointer; }
-.skill-connections__targets button:hover { background: rgba(90, 190, 172, 0.17); }
-.skills-section button.skill-chip { cursor: pointer; min-height: 32px; transition: background 180ms, border-color 180ms, color 180ms; }
-.skills-section button.skill-chip:hover { border-color: var(--accent-bright); color: #fff; }
-.skills-section button.skill-chip--selected { color: #eef0ff; border-color: var(--accent-bright); background: rgba(var(--accent-rgb), 0.24); box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.15); }
-.skills-section button.skill-chip--connected { color: #bce5df; border-color: rgba(117, 217, 190, 0.6); background: rgba(90, 190, 172, 0.12); }
+.skill-connection-target { display: inline-flex; align-items: center; gap: 9px; padding: 9px 12px; color: #bce5df; background: rgba(90, 190, 172, 0.06); border: 1px solid rgba(117, 217, 190, 0.3); border-radius: 6px; font-size: 11px; cursor: pointer; }
+.skill-connection-target { cursor: default; }
+.skills-section .skill-chip { cursor: default; min-height: 32px; transition: background 180ms, border-color 180ms, color 180ms; }
+.skills-section .skill-chip:hover { border-color: var(--accent-bright); color: #fff; }
+.skills-section .skill-chip--selected { color: #eef0ff; border-color: var(--accent-bright); background: rgba(var(--accent-rgb), 0.24); box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.15); }
+.skills-section .skill-chip--connected { color: #bce5df; border-color: rgba(117, 217, 190, 0.6); background: rgba(90, 190, 172, 0.12); }
 @keyframes skill-map-appear { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes skill-connection-flow { from { transform: translateX(-12px); } to { transform: translateX(40px); } }
 @media (max-width: 640px) {
@@ -306,7 +306,7 @@ main .section::before,
   .skill-connections__line { flex: none; width: 1px; height: 20px; margin-left: 20px; }
   .skill-connections__line::after { display: none; }
   .skill-connections__targets { padding: 12px 0 0; border-left: 0; border-top: 1px solid rgba(var(--accent-rgb), 0.4); }
-  .skills-section button.skill-chip { min-height: 44px; }
+  .skills-section .skill-chip { min-height: 44px; }
 }
 
 .explore-terminal__playback { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 16px; color: var(--muted); font-size: 10px; border-bottom: 1px solid var(--border); }

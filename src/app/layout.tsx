@@ -31,10 +31,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-theme="midnight" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: "try{var theme=localStorage.getItem('portfolio-theme');if(['midnight','aurora','ember'].includes(theme))document.documentElement.dataset.theme=theme;}catch(e){}" }} />
-      </head>
+    <html lang="en" data-theme="midnight">
       <body>{children}</body>
     </html>
   );

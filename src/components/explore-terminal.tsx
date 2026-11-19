@@ -6,7 +6,7 @@ import { projects, skillGroups } from "@/data/portfolio";
 
 const responses: Record<string, string> = {
   help: "Try about, skills, projects, contact, or clear. Choose a command below or type your own.",
-  about: "Hi, I'm Aryan. I build Python and Django applications, REST APIs, and explore applied AI and data pipelines.",
+  about: "Hi, I'm Aryan. I build AI-powered full-stack applications, connecting user interfaces with Python and Django APIs, relational databases, and AI integrations.",
   skills: skillGroups.map((group) => `${group.title}: ${group.skills.join(", ")}`).join("\n"),
   projects: projects.map((project) => `${project.name}\n  ${project.description}`).join("\n\n"),
   contact: "Have something in mind? Open the contact section below and let's connect.",
