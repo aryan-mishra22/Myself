@@ -11,7 +11,7 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/config/site";
 
 const navItems = [
@@ -71,31 +71,47 @@ export function ScrollProgress() {
 export function IntroOverlay() {
   const [visible, setVisible] = useState(true);
   const reduceMotion = useReducedMotion();
+  const dialog = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setVisible(false), reduceMotion ? 0 : 650);
-    return () => window.clearTimeout(timer);
-  }, [reduceMotion]);
+    if (!visible || reduceMotion === null) return;
+    const element = dialog.current;
+    if (!reduceMotion) element?.showModal();
+    const previousOverflow = document.body.style.overflow;
+    if (!reduceMotion) document.body.style.overflow = "hidden";
+    const timer = window.setTimeout(() => setVisible(false), reduceMotion ? 0 : 3400);
+    return () => {
+      window.clearTimeout(timer);
+      element?.close();
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [reduceMotion, visible]);
 
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
-          className="intro-overlay"
-          aria-hidden="true"
+        <motion.dialog
+          ref={dialog}
+          className="cinematic-intro"
+          aria-label="Welcome to Aryan Kumar Mishra's portfolio"
+          onCancel={() => setVisible(false)}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: reduceMotion ? 0 : 0.45 } }}
         >
-          <motion.span
-            className="intro-overlay__mark"
-            initial={{ opacity: 0, scale: 0.88 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 0.35 }}
-          >
-            A<span>.</span>
-          </motion.span>
-          <span className="intro-overlay__line" />
-        </motion.div>
+          <div className="cinematic-intro__beams" aria-hidden="true">
+            {Array.from({ length: 12 }, (_, index) => <i key={index} style={{ left: `${8 + index * 7.5}%`, animationDelay: `${index * 0.065}s` }} />)}
+          </div>
+          <div className="cinematic-intro__identity">
+            <p className="cinematic-intro__eyebrow">A PORTFOLIO BY</p>
+            <div className="cinematic-intro__monogram" aria-hidden="true">
+              <span>A</span><span>K</span><span>M</span>
+            </div>
+            <p className="cinematic-intro__name">ARYAN KUMAR MISHRA</p>
+            <p className="cinematic-intro__tagline">CODE. CREATE. MAKE IT MATTER.</p>
+          </div>
+          <button type="button" className="cinematic-intro__skip" onClick={() => setVisible(false)}>Skip intro <ArrowUpRight size={15} aria-hidden="true" /></button>
+          <span className="cinematic-intro__progress" aria-hidden="true" />
+        </motion.dialog>
       )}
     </AnimatePresence>
   );

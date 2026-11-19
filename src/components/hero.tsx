@@ -10,6 +10,7 @@ import {
   Code2,
   Command,
   Sparkles,
+  Workflow,
 } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -20,9 +21,9 @@ const codeLines = [
   { number: "01", content: <><span className="code-purple">class</span> <span className="code-blue">Builder</span>:</> },
   { number: "02", content: <>&nbsp;&nbsp;<span className="code-purple">def</span> <span className="code-yellow">__init__</span>(self):</> },
   { number: "03", content: <>&nbsp;&nbsp;&nbsp;&nbsp;self.focus = [</> },
-  { number: "04", content: <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="code-green">&quot;thoughtful software&quot;</span>,</> },
+  { number: "04", content: <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="code-green">&quot;Python &amp; Django&quot;</span>,</> },
   { number: "05", content: <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="code-green">&quot;applied AI&quot;</span>,</> },
-  { number: "06", content: <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="code-green">&quot;real-world impact&quot;</span></> },
+  { number: "06", content: <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="code-green">&quot;data engineering&quot;</span></> },
   { number: "07", content: <>&nbsp;&nbsp;&nbsp;&nbsp;]</> },
   { number: "08", content: <>&nbsp;</> },
   { number: "09", content: <>&nbsp;&nbsp;<span className="code-purple">def</span> <span className="code-yellow">build</span>(self, idea):</> },
@@ -221,6 +222,7 @@ export function Hero() {
           <div className="visual-center-mark" aria-hidden="true"><Command size={24} strokeWidth={1.4} /></div>
           <FloatingPill className="floating-pill--ai"><Sparkles size={13} /> applied AI</FloatingPill>
           <FloatingPill className="floating-pill--backend"><Code2 size={13} /> backend</FloatingPill>
+          <FloatingPill className="floating-pill--data"><Workflow size={13} /> data engineering</FloatingPill>
           <FloatingPill className="floating-pill--python"><Circle size={10} fill="currentColor" /> Python</FloatingPill>
           <CodeWindow />
           <FloatingTerminal />

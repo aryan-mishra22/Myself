@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
+import "./themes.css";
 
 export const metadata: Metadata = {
   title: {
@@ -30,7 +31,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="midnight" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: "try{var theme=localStorage.getItem('portfolio-theme');if(['midnight','aurora','ember'].includes(theme))document.documentElement.dataset.theme=theme;}catch(e){}" }} />
+      </head>
       <body>{children}</body>
     </html>
   );

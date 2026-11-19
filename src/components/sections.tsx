@@ -28,6 +28,7 @@ import {
 } from "@/data/portfolio";
 import { Reveal } from "@/components/reveal";
 import { SocialLinks } from "@/components/site-shell";
+import { getConnectedSkills } from "@/data/skill-connections";
 
 function SectionHeading({
   eyebrow,
@@ -151,14 +152,35 @@ const skillChipVariants = {
 
 export function SkillsSection() {
   const reduceMotion = useReducedMotion();
+  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
+  const relatedSkills = selectedSkill ? getConnectedSkills(selectedSkill) : [];
 
   return (
     <section className="section skills-section" id="skills" aria-labelledby="skills-title">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading eyebrow="THE TOOLKIT" title="Tools for turning ideas into reality." titleId="skills-title" />
         <p className="section-lead">
-          A growing set of tools I reach for to make useful, thoughtful software.
+          Select a skill to discover the tools it connects with. Select it again to reset.
         </p>
+        <div className="skill-connections" aria-label="Skill connections">
+          <div className="skill-connections__heading">
+            <p role="status" aria-live="polite">
+              {selectedSkill ? `${selectedSkill} connects with ${relatedSkills.length} tools below.` : "Start with Python, or choose any skill below."}
+            </p>
+            {selectedSkill && <button type="button" onClick={() => setSelectedSkill(null)}>Reset selection</button>}
+          </div>
+          {selectedSkill && (
+            <div className="skill-connections__map" key={selectedSkill}>
+              <span className="skill-connections__origin">{selectedSkill}</span>
+              <span className="skill-connections__line" aria-hidden="true" />
+              <div className="skill-connections__targets" aria-label={`Tools connected to ${selectedSkill}`}>
+                {relatedSkills.map((skill) => (
+                  <button type="button" key={skill} onClick={() => setSelectedSkill(skill)} aria-label={`Explore ${skill} connections`}>{skill}<ArrowRight size={12} aria-hidden="true" /></button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
         <div className="skills-grid">
           {skillGroups.map((group, index) => {
             const Icon = skillIcons[index];
@@ -177,9 +199,19 @@ export function SkillsSection() {
                   viewport={{ once: true, amount: 0.7 }}
                 >
                   {group.skills.map((skill) => (
-                    <motion.span className="skill-chip" variants={skillChipVariants} key={skill}>
+                    <motion.button
+                      type="button"
+                      className={`skill-chip${selectedSkill === skill ? " skill-chip--selected" : relatedSkills.includes(skill) ? " skill-chip--connected" : ""}`}
+                      variants={skillChipVariants}
+                      key={skill}
+                      aria-pressed={selectedSkill === skill}
+                      aria-label={`${skill}${relatedSkills.includes(skill) ? `, connected to ${selectedSkill}` : ""}`}
+                      onClick={() => setSelectedSkill(selectedSkill === skill ? null : skill)}
+                    >
                       {skill}
-                    </motion.span>
+                      {selectedSkill === skill && <span aria-hidden="true"> •</span>}
+                      {relatedSkills.includes(skill) && <span aria-hidden="true"> ↔</span>}
+                    </motion.button>
                   ))}
                 </motion.div>
               </Reveal>

@@ -13,12 +13,32 @@ import {
   Sparkles,
   Workflow,
 } from "lucide-react";
-import { useState } from "react";
-import type { ProjectCategory } from "@/data/portfolio";
+import { useState, type PointerEvent } from "react";
+import type { Project, ProjectCategory } from "@/data/portfolio";
+import { ProjectDetails } from "@/components/project-details";
 import { projects } from "@/data/portfolio";
 import { Reveal } from "@/components/reveal";
 
 const filters: Array<"All work" | ProjectCategory> = ["All work", "AI & Software", "Data Engineering"];
+
+function tiltProjectCard(event: PointerEvent<HTMLElement>) {
+  if (event.pointerType !== "mouse" || !window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) return;
+  const card = event.currentTarget;
+  // Offset dimensions stay stable while the card rotates.
+  const rect = card.getBoundingClientRect();
+  const x = Math.max(-1, Math.min(1, (event.clientX - rect.left - rect.width / 2) / (card.offsetWidth / 2)));
+  const y = Math.max(-1, Math.min(1, (event.clientY - rect.top - rect.height / 2) / (card.offsetHeight / 2)));
+  const distance = Math.hypot(x, y);
+  card.style.setProperty("--tilt-axis-x", String(distance ? -y / distance : 1));
+  card.style.setProperty("--tilt-axis-y", String(distance ? x / distance : 0));
+  card.style.setProperty("--tilt-angle", `${Math.min(distance, 1) * 5}deg`);
+  card.style.setProperty("--shine-x", `${(x + 1) * 50}%`);
+  card.style.setProperty("--shine-y", `${(y + 1) * 50}%`);
+}
+
+function resetProjectCard(event: PointerEvent<HTMLElement>) {
+  event.currentTarget.style.setProperty("--tilt-angle", "0deg");
+}
 
 function ProjectArtwork({ id }: { id: string }) {
   if (id === "ai-quiz-generator") {
@@ -94,6 +114,7 @@ function BrainLogo() {
 }
 
 export function ProjectsSection() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [filter, setFilter] = useState<(typeof filters)[number]>("All work");
   const reduceMotion = useReducedMotion();
   const visibleProjects = filter === "All work"
@@ -128,6 +149,9 @@ export function ProjectsSection() {
           <AnimatePresence mode="popLayout">
             {visibleProjects.map((project, index) => (
               <motion.article
+                onPointerMove={tiltProjectCard}
+                onPointerLeave={resetProjectCard}
+                onPointerCancel={resetProjectCard}
                 className={`project-card${project.id === "ai-quiz-generator" ? " project-card--featured" : ""}`}
                 key={project.id}
                 layout
@@ -148,6 +172,7 @@ export function ProjectsSection() {
                     {project.technologies.map((technology) => <span key={technology}>{technology}</span>)}
                   </div>
                   <div className="project-links">
+                    <button type="button" className="project-details-trigger" aria-haspopup="dialog" aria-label={`Explore ${project.name} details`} onClick={() => setSelectedProject(project)}>Explore project <ArrowUpRight size={14} /></button>
                     {project.demoUrl ? (
                       <a href={project.demoUrl} className="text-link" target="_blank" rel="noreferrer">View project <ArrowUpRight size={14} /></a>
                     ) : (
@@ -169,6 +194,7 @@ export function ProjectsSection() {
           <span>Visit linked repositories for available source code.</span>
         </Reveal>
       </div>
+      {selectedProject && <ProjectDetails key={selectedProject.id} project={selectedProject} onClose={() => setSelectedProject(null)} />}
     </section>
   );
 }
