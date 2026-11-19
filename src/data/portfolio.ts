@@ -34,8 +34,8 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     number: "02",
-    title: "Backend development",
-    skills: ["Django", "Django REST Framework", "REST APIs", "MySQL"],
+    title: "Full-stack development",
+    skills: ["React.js", "Django", "Django REST Framework", "REST APIs", "MySQL"],
   },
   {
     number: "03",

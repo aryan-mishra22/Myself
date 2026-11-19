@@ -1,5 +1,6 @@
 // Undirected connections describe tools that work together, not proficiency levels.
 const connections: Record<string, string[]> = {
+  "React.js": ["REST APIs", "Django"],
   Python: ["Django", "Pandas", "NumPy", "Machine Learning", "NLP", "Lambda"],
   SQL: ["MySQL", "Athena", "ETL"],
   Django: ["Django REST Framework", "MySQL", "Docker"],

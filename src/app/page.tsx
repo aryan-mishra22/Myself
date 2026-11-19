@@ -3,6 +3,7 @@ import { Hero } from "@/components/hero";
 import { AmbientBackground } from "@/components/ambient-background";
 import { ExploreTerminal } from "@/components/explore-terminal";
 import { ButtonFeedback } from "@/components/button-feedback";
+import { SectionNavigator } from "@/components/section-navigator";
 import {
   AboutSection,
   ContactSection,
@@ -22,6 +23,7 @@ export default function HomePage() {
       <ScrollProgress />
       <IntroOverlay />
       <SiteNav />
+      <SectionNavigator />
       <main id="main-content">
         <Hero />
         <ExploreTerminal />

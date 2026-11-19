@@ -81,6 +81,7 @@ export function ExploreTerminal() {
     <section
       ref={section}
       className="explore-terminal-section section"
+      id="explore"
       aria-labelledby="terminal-title"
       onPointerDownCapture={(event) => {
         if (!(event.target instanceof Element && event.target.closest("[data-autoplay-toggle]"))) setAutoPlay(false);
