@@ -12,8 +12,9 @@ export function ButtonFeedback() {
     const timers = new Set<ReturnType<typeof setTimeout>>();
     const onClick = (event: MouseEvent) => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      const target = event.target instanceof Element ? event.target.closest<HTMLElement>("button, a.button, a.text-link, a.nav-resume") : null;
+      const target = event.target instanceof Element ? event.target.closest<HTMLElement>("button, a.button, a.text-link, a.nav-resume, .skill-group") : null;
       if (!target || target.matches(":disabled, [aria-disabled='true']")) return;
+      if (target.matches(".skill-group") && !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
       const rect = target.getBoundingClientRect();
       const id = nextId.current++;
       const ripple = { id, left: rect.left, top: rect.top, width: rect.width, height: rect.height,

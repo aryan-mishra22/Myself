@@ -1,9 +1,32 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { AINetwork } from "@/components/ai-network";
 
 export function AmbientBackground() {
   const background = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const hero = document.getElementById("home");
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (background.current && hero) {
+        background.current.dataset.networkVisible = String(hero.getBoundingClientRect().bottom <= 72);
+      }
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
 
   useEffect(() => {
     const preference = window.matchMedia("(pointer: fine) and (prefers-reduced-motion: no-preference)");
@@ -30,6 +53,7 @@ export function AmbientBackground() {
       <div className="ambient-background__aurora ambient-background__aurora--blue" />
       <div className="ambient-background__aurora ambient-background__aurora--violet" />
       <div className="ambient-background__aurora ambient-background__aurora--teal" />
+      <div className="ambient-background__network"><AINetwork /></div>
       <div className="ambient-background__particles">
         {Array.from({ length: 18 }, (_, index) => (
           <span

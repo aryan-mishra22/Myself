@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/config/site";
+import { PaperAnnouncement } from "@/components/paper-announcement";
 
 const navItems = [
   { label: "About", id: "about" },
@@ -88,6 +89,7 @@ export function IntroOverlay() {
   }, [reduceMotion, visible]);
 
   return (
+    <>
     <AnimatePresence>
       {visible && (
         <motion.dialog
@@ -109,11 +111,12 @@ export function IntroOverlay() {
             <p className="cinematic-intro__name">ARYAN KUMAR MISHRA</p>
             <p className="cinematic-intro__tagline">CODE. CREATE. MAKE IT MATTER.</p>
           </div>
-          <button type="button" className="cinematic-intro__skip" onClick={() => setVisible(false)}>Skip intro <ArrowUpRight size={15} aria-hidden="true" /></button>
           <span className="cinematic-intro__progress" aria-hidden="true" />
         </motion.dialog>
       )}
     </AnimatePresence>
+    {!visible && <PaperAnnouncement />}
+    </>
   );
 }
 

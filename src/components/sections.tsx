@@ -391,7 +391,15 @@ export function ContactSection() {
 
   return (
     <section className="section contact-section" id="contact" aria-labelledby="contact-title">
-      <div className="contact-glow" aria-hidden="true" />
+      <div className="contact-horizon" aria-hidden="true">
+        <div className="contact-horizon__glow" />
+        <svg className="contact-horizon__lines" viewBox="0 0 1440 600" fill="none" preserveAspectRatio="xMidYMax slice" focusable="false">
+          {[0, 1, 2, 3, 4].map((line) => (
+            <path key={line} d={`M-100 ${430 + line * 40} Q360 ${70 + line * 45} 760 ${380 + line * 26} T1540 ${220 + line * 48}`} pathLength={100} style={{ animationDelay: `${line * -2.4}s` }} />
+          ))}
+        </svg>
+        <span className="contact-horizon__edge" />
+      </div>
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading eyebrow="LET'S TALK" title="Good things start with a conversation." />
         <div className="contact-layout">
@@ -418,6 +426,8 @@ export function ContactSection() {
           </Reveal>
 
           <Reveal className="contact-form-wrap" delay={0.1}>
+            <span className="contact-paper-tape" aria-hidden="true" />
+            <div className="contact-paper-heading"><span>A NOTE TO ARYAN</span><span>LET’S MAKE IT HAPPEN ↗</span></div>
             <form className="contact-form" onSubmit={handleSubmit} noValidate>
               <div className="contact-form__row">
                 <div className="form-field">
