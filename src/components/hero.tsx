@@ -187,7 +187,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: reduceMotion ? 0 : 0.35, delay: reduceMotion ? 0 : 0.46 }}
             >
-              Python &amp; Django
+              Data Engineering
             </motion.span>
           </div>
           <p className="hero-description">

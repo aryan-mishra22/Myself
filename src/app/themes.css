@@ -87,3 +87,44 @@ main .contact-section {
 :root .cinematic-intro__eyebrow,
 :root .cinematic-intro__tagline { color: #c3abab; }
 
+/* Cinematic portrait card, with the photograph as the feature artwork. */
+.profile-cinema.about-profile { border: 1px solid #262626; border-radius: 7px; background: #141414; box-shadow: 0 22px 65px rgba(0, 0, 0, 0.55); }
+.profile-cinema .about-profile__visual { display: block; min-height: 540px; padding: 270px 0 0; isolation: isolate; background: #141414; }
+.profile-cinema .about-profile__visual::before,
+.profile-cinema .about-profile__visual::after { display: none; }
+.profile-cinema .profile-photo-float { position: absolute; inset: 0 0 auto; height: 390px; z-index: -1; }
+.profile-cinema .profile-photo-frame { width: 100%; height: 100%; border: 0; border-radius: 0; box-shadow: none; transform: none; background: #161416; }
+.profile-cinema .profile-photo-frame::after { display: none; }
+.profile-cinema .profile-photo { object-position: center 26%; filter: grayscale(0.2) saturate(0.65) contrast(1.12) brightness(0.72); transition: transform 900ms ease; }
+.profile-cinema .profile-photo-shine { background: linear-gradient(180deg, rgba(0, 0, 0, 0.65), transparent 22%, rgba(20, 20, 20, 0.1) 48%, #141414 98%), linear-gradient(90deg, rgba(20, 20, 20, 0.4), transparent 65%); }
+.profile-cinema__top { position: absolute; top: 22px; left: 24px; right: 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.profile-cinema__top > span:first-child { font-size: 25px; font-weight: 900; letter-spacing: -0.06em; color: #e50914; text-shadow: 0 2px 12px #000; }
+.profile-cinema__top > span:first-child span { color: #e50914; }
+.profile-cinema__top > span:last-child { padding: 5px 8px; border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 3px; background: rgba(0, 0, 0, 0.5); font-size: 8px; letter-spacing: 0.13em; color: #eee; }
+.profile-cinema__story { position: relative; padding: 0 26px 26px; }
+.profile-cinema__eyebrow { display: flex; align-items: center; gap: 8px; color: #e1dede; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; }
+.profile-cinema__eyebrow b { color: #e50914; font-size: 27px; line-height: 1; font-weight: 900; letter-spacing: -0.08em; }
+.profile-cinema__story h3 { margin: 12px 0; font-size: clamp(28px, 3.2vw, 44px); line-height: 0.98; font-weight: 850; letter-spacing: -0.045em; color: #fff; text-shadow: 0 3px 16px rgba(0, 0, 0, 0.4); }
+.profile-cinema__story h3 span { color: #e50914; }
+.profile-cinema__story p { color: #b7b3b8; font-size: 10px; letter-spacing: 0.14em; margin: 0 0 18px; }
+.profile-cinema__metadata { display: flex; flex-wrap: wrap; gap: 9px; margin: 16px 0 12px; font-size: 11px; color: #dedede; }
+.profile-cinema__metadata span + span { border: 1px solid #747474; padding: 1px 6px; border-radius: 2px; font-size: 9px; }
+.profile-cinema__story .profile-cinema__synopsis { color: #c7c7c7; font-size: 12px; line-height: 1.7; letter-spacing: 0; max-width: 370px; }
+.profile-cinema__actions { display: flex; flex-wrap: wrap; gap: 9px; }
+.profile-cinema__action { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 15px; border-radius: 4px; background: #fff; color: #141414; font-size: 12px; font-weight: 700; transition: background 180ms ease; }
+.profile-cinema__action:hover { background: #d8d8d8; }
+.profile-cinema__action--secondary { background: #3b3b3b; color: #fff; }
+.profile-cinema__action--secondary:hover { background: #505050; }
+.profile-cinema .about-profile__caption { position: relative; min-height: 48px; flex-wrap: wrap; padding: 12px 20px; color: #a8a8a8; background: #101010; border-top: 1px solid #292929; font-size: 8px; }
+.profile-cinema .about-profile__caption::before { position: absolute; top: -1px; left: 0; width: 35%; height: 2px; content: ""; background: #e50914; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .profile-cinema:hover .profile-photo { transform: scale(1.035); }
+}
+@media (max-width: 640px) {
+  .profile-cinema .about-profile__visual { min-height: 0; padding-top: 245px; }
+  .profile-cinema .profile-photo-float { height: 350px; }
+  .profile-cinema__story { padding: 0 20px 24px; }
+  .profile-cinema__story h3 { font-size: clamp(30px, 8vw, 40px); }
+  .profile-cinema__top { left: 20px; right: 20px; }
+}
+

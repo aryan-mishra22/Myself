@@ -14,6 +14,7 @@ import {
   Code2,
   Database,
   GraduationCap,
+  Info,
   Layers3,
   Mail,
   Phone,
@@ -58,14 +59,8 @@ function SectionHeading({
 }
 
 function AnimatedPortrait() {
-  const reduceMotion = useReducedMotion();
-
   return (
-    <motion.div
-      className="profile-photo-float"
-      animate={reduceMotion ? undefined : { y: [0, -4, 0] }}
-      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-    >
+    <div className="profile-photo-float">
       <div
         className="profile-photo-frame"
       >
@@ -74,11 +69,11 @@ function AnimatedPortrait() {
           src="/aryan-kumar-mishra.jpeg"
           alt="Portrait of Aryan Kumar Mishra"
           fill
-          sizes="160px"
+          sizes="(max-width: 640px) 100vw, 50vw"
         />
         <span className="profile-photo-shine" />
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -105,18 +100,24 @@ export function AboutSection() {
           </Reveal>
 
           <Reveal className="about-aside" delay={0.1}>
-            <div className="about-profile">
+            <div className="about-profile profile-cinema">
               <div className="about-profile__visual">
-                <div className="profile-orbit profile-orbit--one" aria-hidden="true" />
-                <div className="profile-orbit profile-orbit--two" aria-hidden="true" />
                 <AnimatedPortrait />
-                <span className="profile-cross profile-cross--one" aria-hidden="true">+</span>
-                <span className="profile-cross profile-cross--two" aria-hidden="true">+</span>
-                <span className="profile-coordinate">BUILD · LEARN · REPEAT</span>
+                <div className="profile-cinema__top"><span>AKM<span>.</span></span><span>THE PORTFOLIO COLLECTION</span></div>
+                <div className="profile-cinema__story">
+                  <span className="profile-cinema__eyebrow"><b>A</b> THE DEVELOPER STORY</span>
+                  <h3>ARYAN KUMAR<br />MISHRA<span>.</span></h3>
+                  <div className="profile-cinema__metadata"><span>Full-stack developer</span><span>AI-powered</span></div>
+                  <p className="profile-cinema__synopsis">Turning ideas into web experiences. Connecting thoughtful interfaces, Python backends, and AI.</p>
+                  <div className="profile-cinema__actions">
+                    <a href="#projects" className="profile-cinema__action"><ArrowRight size={17} aria-hidden="true" /> View projects</a>
+                    <a href="#experience" className="profile-cinema__action profile-cinema__action--secondary"><Info size={17} aria-hidden="true" /> My journey</a>
+                  </div>
+                </div>
               </div>
               <div className="about-profile__caption">
-                <span>DESIGNING THE NEXT ITERATION</span>
-                <span>PYTHON · AI</span>
+                <span>BUILD · LEARN · REPEAT</span>
+                <span>REACT · PYTHON · AI</span>
               </div>
             </div>
             <div className="about-focus">

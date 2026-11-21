@@ -23,7 +23,9 @@ export function ExploreTerminal() {
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
   const reduceMotion = useReducedMotion();
   const section = useRef<HTMLElement>(null);
-  const inView = useInView(section, { amount: 0.3 });
+  // The mobile layout is tall, so waiting for 30% visibility can prevent the
+  // demo from starting while its command buttons are already on screen.
+  const inView = useInView(section, { amount: 0.05 });
   const [autoPlay, setAutoPlay] = useState(true);
   const [pageVisible, setPageVisible] = useState(true);
   const isHydrated = useSyncExternalStore(
@@ -31,7 +33,7 @@ export function ExploreTerminal() {
     getClientHydrationSnapshot,
     getServerHydrationSnapshot,
   );
-  const shouldAnimate = isHydrated && reduceMotion === false;
+  const shouldAnimate = isHydrated && !reduceMotion;
   const autoRunning = autoPlay && shouldAnimate;
   const typing = shouldAnimate && visibleCount < result.text.length;
 
